@@ -40,7 +40,9 @@ def scrape_page(page, data):
             end_idx = start_idx + 10
             item['Image Source'] = item['Image Source'][:start_idx]+'0-1000-0-1500'+item['Image Source'][end_idx:]
 
-            data.append(item)
+            data.append(item)     
+    else:
+        print(f"Couldn't scrape page #{page}")
 
     browser.close()
 
