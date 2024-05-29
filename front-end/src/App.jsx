@@ -1,4 +1,4 @@
-import './App.css'
+import './css/App.css'
 import React, {useState, createContext} from 'react';
 import Home from './components/Home';
 import Game from './components/Game';
