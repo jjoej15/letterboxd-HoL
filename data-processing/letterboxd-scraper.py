@@ -1,11 +1,10 @@
 # Scrapes data for Letterboxd's 936 most popular films and stores in movies.csv
-# Working as of 5/28/2024
+# Working as of 5/29/2024
 
 from bs4 import BeautifulSoup
 from selenium import webdriver;
 import pandas as pd
 import time
-import random
 
 def scrape_page(page, data):
     '''
@@ -21,6 +20,7 @@ def scrape_page(page, data):
         url = f"https://letterboxd.com/films/popular/page/{page}/"
     browser = webdriver.Firefox()
     browser.get(url)
+    time.sleep(5)
     html = browser.page_source
     soup = BeautifulSoup(html, features="html.parser")
 
@@ -56,10 +56,6 @@ if __name__ == '__main__':
     while curr_page < 14:
         scrape_page(curr_page, data)
         curr_page += 1
-
-        # Wait a little bit to scrape next page
-        if curr_page < 14:
-            time.sleep(random.randint(10, 20))
 
     df = pd.DataFrame(data)
     df.to_csv("movies.csv")
