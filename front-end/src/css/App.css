@@ -1,0 +1,26 @@
+body{
+    background-image: linear-gradient(to right, #FF8000, #00E054, #40BCF4);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.Home{
+    display: flex;
+    justify-content: center;
+}
+.vertical-center{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+.Home img{
+    height: 250px;
+}
+.Footer{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width: 100%;
+    text-align: center;
+}
