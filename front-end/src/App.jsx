@@ -4,7 +4,7 @@ import Home from './components/Home';
 import Game from './components/Game';
 
 export const HighScoreContext = createContext();
-export const GameStartedContext = createContext();
+export const GameSetContext = createContext();
 
 function App() {
   const [highScore, setHighScore] = useState(0);
@@ -12,11 +12,11 @@ function App() {
   
 
   return (
-      <HighScoreContext.Provider value={highScore} >
-        <GameStartedContext.Provider value={gameStarted}>
+      <HighScoreContext.Provider value={highScore}>
+        <GameSetContext.Provider value={setGameStarted}>
           {gameStarted ? <Game />
                       : <Home />}
-        </GameStartedContext.Provider>   
+        </GameSetContext.Provider>   
       </HighScoreContext.Provider>
   );
 }
