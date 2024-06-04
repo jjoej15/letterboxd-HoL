@@ -1,12 +1,13 @@
-# Scrapes data for Letterboxd's 936 most popular films and stores in movies.csv
-# Working as of 5/29/2024
+# Scrapes data for Letterboxd's 936 most popular films and stores in movies.json
+# Working as of 6/3/2024
 
 from bs4 import BeautifulSoup
 from selenium import webdriver;
 import pandas as pd
 import time
+import json
 
-def scrape_page(page, data):
+def scrape_popular(page, data):
     '''
     Scrapes Letterboxd most popular films data for given page.
     Parameters:
@@ -54,8 +55,14 @@ if __name__ == '__main__':
 
     # Scrapes first 13 pages from Letterboxd's most popular films
     while curr_page < 14:
-        scrape_page(curr_page, data)
+        scrape_popular(curr_page, data)
         curr_page += 1
 
+    # Converting data to string in json format using pandas, writes to file
     df = pd.DataFrame(data)
-    df.to_csv("movies.csv")
+    json_str = df.to_json(orient='records')
+    parsed = json.loads(json_str)
+    with open('movies.json', 'w') as file:
+        file.write(json.dumps({"data": parsed}, indent=4))
+
+    print("Process finished")
