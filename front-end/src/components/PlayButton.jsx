@@ -1,27 +1,24 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import { GameSetContext } from '../App';
+import { GameSetContext, ScoreSetContext} from '../App';
 
 function PlayButton(props) {
-    const text = props.text || 'Play';
-    const setGameState = useContext(GameSetContext);
+    const text = props.text || 'PLAY';
+    const startGame = useContext(GameSetContext);
+    const setScore = useContext(ScoreSetContext);
 
-    const startGame = (e) => {
-        // Triggers bounce animation
-        e.target.classList.add('bounce-animation');
-
-        // Set timeout to let animation finish and start game
+    const handleClick = () => {
+        startGame();
         setTimeout(() => {
-            e.target.classList.remove('bounce-animation');
-            setGameState(true);
+            setScore(0);
         }, 1000);
     }
 
-    return(<button onClick={(e) => startGame(e)} id="play-game-btn">{text}</button>);
+    return(<button onClick={handleClick} id="play-game-btn">{text}</button>);
 }
 
 PlayButton.propTypes = {
-    text: PropTypes.string,
+    text: PropTypes.string
 }
 
 export default PlayButton;
