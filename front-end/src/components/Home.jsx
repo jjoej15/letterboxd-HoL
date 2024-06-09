@@ -15,10 +15,10 @@ function Home() {
             <div className="Home">
                 <div className="vertical-center">
                     <img type='image/svg+xml' alt='letterboxd decal dots' src={letterboxdSvg}/>
-                    <p className="app-title">LETTERBOXD</p>
-                    <p className="app-title">HIGHER OR LOWER</p>
+                    <h3 className="app-title">LETTERBOXD</h3>
+                    <h3 className="app-title">HIGHER OR LOWER</h3>
                     <PlayButton />
-                    <p className="high-score-home">HIGH SCORE: {highScore !== "" ? highScore : 0}</p>
+                    <h3 className="high-score-home">HIGH SCORE: {highScore !== "" ? highScore : 0}</h3>
                 </div>
                 
                 <Footer />

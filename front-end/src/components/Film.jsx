@@ -16,15 +16,14 @@ function Film(props) {
     return(
         <div onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}
              className="Film" id={props.id} style={containerStyle} onClick={props.onClick} key={props.title}>
-            <div className="film-info">
-                <h1 className="film-title">{props.title}</h1>
-
-                {props.isRevealed && 
-                <div className="film-rating" >
-                    <h3>{props.rating}</h3>
-                    <FontAwesomeIcon icon={faStar} />
-                </div> }
+            <div className="film-content">
+                <h1 className="film-title">{props.title}</h1>               
             </div>
+            {props.isRevealed && 
+                        <div className="film-rating" >
+                            <h3>{props.rating}</h3>
+                            <FontAwesomeIcon icon={faStar} />
+                        </div> }     
         </div>
     );
 }
