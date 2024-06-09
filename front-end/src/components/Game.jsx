@@ -3,7 +3,8 @@ import { useState, useEffect, useContext } from "react";
 import { ScoreContext, ScoreSetContext, GameSetContext } from "../App";
 
 function Game() {
-    const highScore = decodeURIComponent(document.cookie) !== "" ? decodeURIComponent(document.cookie).split("=")[1] : ""
+    console.log(decodeURIComponent(document.cookie));
+    const highScore = decodeURIComponent(document.cookie) !== "" ? decodeURIComponent(document.cookie).split('=')[1] : "";
     const [leftFilm, setLeftFilm] = useState(null);
     const [rightFilm, setRightFilm] = useState(null);
     const [prevLeftFilm, setPrevLeftFilm] = useState(null);
@@ -59,7 +60,6 @@ function Game() {
         
         let rightIdx;
         if (filmToKeepId !== 'right' || filmToKeep.count > 1) {
-            console.log(leftIdx);
             if (filmToKeepId !== '') setPrevRightFilm({...rightFilm});
 
             rightIdx = Math.floor(Math.random() * movieData[0].data.length);
@@ -97,7 +97,7 @@ function Game() {
     }, [movieData]);
 
     const endGameNow = () => {
-        if (score >= highScore) document.cookie = `highScore=${score}`;
+        if (score >= highScore) document.cookie = `highScore=${score}; max-age=1209600`; // Cookie expires in 2 weeks
         if (score === 0) setScore(-1);
         setUsedIdxTable({});
         setTimeout(() => {
@@ -174,7 +174,7 @@ function Game() {
                         setClicked(false);
                     }, 1750)                    
                 }
-                
+
             // User answered incorrectly, game ends
             } else {
                 endGameNow();
