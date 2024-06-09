@@ -148,7 +148,7 @@ a:visited{
     padding:0;
     background-color: transparent;
 }
-.film-content:hover > h1{
+.Film:hover * h1{
     transform: scale(1.045);
     transition: transform 0.1s ease-in;
 }
