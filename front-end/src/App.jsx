@@ -25,7 +25,7 @@ function App() {
       <ScoreSetContext.Provider value={setScore}>
         <ScoreContext.Provider value={score}>
           <GameSetContext.Provider value={changeGameState}>
-            {gameStarted ? <Game /> : <Home />}
+            {gameStarted ? <Game /> : <Home setFade={setFade}/>}
           </GameSetContext.Provider>           
         </ScoreContext.Provider>
       </ScoreSetContext.Provider> 

@@ -3,7 +3,6 @@ import { useState, useEffect, useContext } from "react";
 import { ScoreContext, ScoreSetContext, GameSetContext } from "../App";
 
 function Game() {
-    console.log(decodeURIComponent(document.cookie));
     const highScore = decodeURIComponent(document.cookie) !== "" ? decodeURIComponent(document.cookie).split('=')[1] : "";
     const [leftFilm, setLeftFilm] = useState(null);
     const [rightFilm, setRightFilm] = useState(null);

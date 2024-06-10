@@ -17,10 +17,9 @@ function PlayButton(props) {
                 setClicked(false);
             }, 1000);            
         }
-
     }
 
-    return(<button onClick={handleClick} id="play-game-btn">{text}</button>);
+    return(<button onClick={handleClick} className="button">{text}</button>);
 }
 
 PlayButton.propTypes = {
