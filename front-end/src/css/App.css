@@ -1,6 +1,4 @@
 /* to do: add media queries */
-/* to do: fade out from home page to game page */
-/* change to nunito sans font */
 
 * {
     box-sizing: border-box;
@@ -9,8 +7,6 @@
 }
 body{
     background-image: linear-gradient(to right, #FF8000, #00E054, #40BCF4);
-    /* font-family: "Libre Baskerville", serif; */
-    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
     font-family: "Nunito Sans", sans-serif;
     color: #202830;
 }
@@ -22,7 +18,12 @@ a:visited{
     justify-content: center;
     max-width: 100%;
     min-height: 100%;
+
     height: 100vh;
+}
+#results{
+    width: 375px;
+    max-width: 100%;
 }
 .vertical-center{
     display: flex;
@@ -56,7 +57,7 @@ a:visited{
     font-weight: 1400;
     font-size: 2.7rem;
 }
-#play-game-btn{
+.button{
     margin: 26.8px;
     /* vertical-align: middle; */
     border: none;
@@ -71,10 +72,15 @@ a:visited{
     /* transition: transform 0.1s ease-in; */
     font-family: "Nunito Sans", sans-serif;
 }
+#home-btn{
+    background-color: #40BCF4;
+    box-shadow: 3px 3px 15px #3399c8;
+    margin-top: 0;
+}
 .bounce-animation {
     animation: bounce 1s;
 }
-#play-game-btn:hover{
+.button:hover{
     background-color: #ff8c18;
     transform: scale(1.035);
     cursor: pointer;
@@ -178,6 +184,8 @@ a:visited{
     max-width: 200%;
 } */
 .film-rating{
+    display:inline-block;
+    /* background-color: transparent; */
     font-size: 25px;
     position:absolute;
     left:50%;
@@ -187,16 +195,27 @@ a:visited{
     justify-content: center;
     color: #FFD700;
     line-height: 100%;
-    padding:4px;
     animation: fade-in 0.5s forwards
 }
+.film-rating * {
+    padding: 4px;
+    max-width: none;
+}
 .film-rating h3{
+    background-color: transparent;
     color: #202830;
-    width:max-content;
-    margin:0;
+
 }
 .film-rating svg{
-    margin:0;
+    border-radius: 0px 8px 8px 0px;
+    /* margin-left: ; */
+    /* padding-right: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px; */
+    /* padding: 4px; */
+    /* padding:4px; */
+    background-color: transparent;
+    /* margin:0; */
 }
 .prompt{
     width: max-content;
@@ -211,10 +230,6 @@ a:visited{
     background-color: white;
     border-radius: 8px;
     animation: fade-in 1s forwards;
-}
-.prompt h3{
-    /* max-width: 80%;
-    width: max-content; */
 }
 .prompt-text{
     width: auto;
@@ -249,3 +264,111 @@ a:visited{
     0% { transform: translate(-100%, 0%); }
     100% { transform: translate(-100%, 100%); }
 }
+
+@media all and (max-height: 596px) {
+    .Footer {
+        display: none;
+        /* text-align: left;
+        font-size: 0.5rem; */
+    }
+}
+@media all and (max-height: 540px) {
+    .Home img{
+        /* max-width: 100%; */
+        height: 150px;
+        margin: 16.8px;
+        margin: 0px;
+        margin-bottom: 16.8px;
+    }
+    .app-title {
+        font-size: 1.8rem;
+    }
+    .high-score-home {
+        font-size: 1rem;
+    }
+    .button {
+        margin: 16.8px;
+        font-size: 1.1rem;
+        height: 40px
+    }
+    .prompt {
+        font-size: 1rem;
+    }
+    .score {
+        font-size: 1.2rem;
+    }
+    .film-title {
+        font-size: 1.5rem;
+    }
+    .film-rating{
+        font-size: 1.3rem;
+    }
+}
+@media all and (max-width: 400px) {
+    .prompt {
+        font-size: 1rem;
+    }
+    .film-title {
+        font-size: 1.5rem;
+    }
+}
+/* @media all and (min-width: 2000px) {
+    .app-title {
+        font-size: 4rem;
+    }
+    .button {
+        height: 75px;
+        font-size: 1.75rem;
+    }
+    .high-score-home{
+        font-size: 2rem;
+    }
+    .prompt {
+        font-size: 2.25rem;
+    }
+    .score {
+        font-size: 2.5rem;
+    }
+    .film-title {
+        font-size: 2.5rem;
+    }
+    .film-rating {
+        font-size: 2.5rem;
+    }
+    #results h1 {
+        font-size: 3rem;
+    }
+    #results h3 {
+        font-size: 2rem;
+    }
+}
+/* @media all and (min-height: 1300px) {
+    .app-title {
+        font-size: 4rem;
+    }
+    .button {
+        height: 75px;
+        font-size: 1.75rem;
+    }
+    .high-score-home{
+        font-size: 2rem;
+    }
+    .prompt {
+        font-size: 2.25rem;
+    }
+    .score {
+        font-size: 2.5rem;
+    }
+    .film-title {
+        font-size: 2.5rem;
+    }
+    .film-rating {
+        font-size: 2.5rem;
+    }
+    #results h1 {
+        font-size: 3rem;
+    }
+    #results h3 {
+        font-size: 2rem;
+    }
+} */
