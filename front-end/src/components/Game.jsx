@@ -21,7 +21,7 @@ function Game() {
     const fetchData = async() => {
         try {
             // Fetching film data, times out after 8 seconds
-            const response = await fetch('http://localhost:4000/movies', {signal: AbortSignal.timeout(8000)});
+            const response = await fetch('https://letterboxd-higher-or-lower.onrender.com/movies', {signal: AbortSignal.timeout(8000)});
             const data = await response.json();
             setMovieData(data);
         }
