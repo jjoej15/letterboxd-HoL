@@ -1,6 +1,6 @@
 # Letterboxd Higher or Lower Game
 
-Simple web application that allows users to compare Letterboxd movie ratings and guess which movie has a higher rating. Inspired by the popular "Higher or Lower" game format, this project uses data scraped from Letterboxd.
+Simple web application that allows users to compare Letterboxd movie ratings and guess which movie has a higher rating. Inspired by the popular "Higher or Lower" game format, this project uses data scraped from Letterboxd. Check out deployed website here: https://letterboxdhol.netlify.app/
 
 ## Table of Contents
 
