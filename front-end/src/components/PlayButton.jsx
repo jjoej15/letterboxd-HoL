@@ -6,7 +6,7 @@ function PlayButton(props) {
     const text = props.text || 'PLAY';
     const startGame = useContext(GameSetContext);
     const setScore = useContext(ScoreSetContext);
-    const [clicked, setClicked] = useState(false);
+    const [clicked, setClicked] = useState(false); // Boolean representing whether button has been clicked
 
     const handleClick = () => {
         if (!clicked) {

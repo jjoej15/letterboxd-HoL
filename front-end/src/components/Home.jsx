@@ -8,7 +8,7 @@ import { ScoreContext, ScoreSetContext } from "../App";
 function Home(props) {
     // Checks cookies to look for user's stored high score 
     const highScore = decodeURIComponent(document.cookie) !== "" ? decodeURIComponent(document.cookie).split("=")[1] : "";
-    const [clicked, setClicked] = useState(false);
+    const [clicked, setClicked] = useState(false); // Boolean representing whether a button has been clicked
 
     const score = useContext(ScoreContext);
     const setScore = useContext(ScoreSetContext);
@@ -38,6 +38,7 @@ function Home(props) {
                 
                 <Footer />
             </div>
+            
         : // Results screen
             <div className="Home">
                 <div className="vertical-center" id="results">

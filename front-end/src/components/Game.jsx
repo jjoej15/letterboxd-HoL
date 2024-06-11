@@ -3,15 +3,15 @@ import { useState, useEffect, useContext } from "react";
 import { ScoreContext, ScoreSetContext, GameSetContext } from "../App";
 
 function Game() {
-    const highScore = decodeURIComponent(document.cookie) !== "" ? decodeURIComponent(document.cookie).split('=')[1] : "";
+    const highScore = decodeURIComponent(document.cookie) !== "" ? decodeURIComponent(document.cookie).split('=')[1] : ""; // Looking at cookies for high score
     const [leftFilm, setLeftFilm] = useState(null);
     const [rightFilm, setRightFilm] = useState(null);
     const [prevLeftFilm, setPrevLeftFilm] = useState(null);
     const [prevRightFilm, setPrevRightFilm] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false); // Boolean representing whether data has finished loading
     const [movieData, setMovieData] = useState(null);
-    const [clicked, setClicked] = useState(false);
-    const [usedIdxTable, setUsedIdxTable] = useState({});
+    const [clicked, setClicked] = useState(false); // Boolean that represents whether a film has been clicked or not
+    const [usedIdxTable, setUsedIdxTable] = useState({}); // Table to keep track of the indices that have been used in the movie database
 
     const score = useContext(ScoreContext);
     const setScore = useContext(ScoreSetContext);
@@ -23,7 +23,6 @@ function Game() {
             const response = await fetch('http://localhost:4000/movies', {signal: AbortSignal.timeout(8000)});
             const data = await response.json();
             setMovieData(data);
-            // console.log(movieData);
         }
         catch (error) {
             console.error(error);
@@ -33,13 +32,15 @@ function Game() {
         }
     }
     
+    // Changes films. filmToKeep parameter is film object that won't be changed, filmToKeepId is a string representing it's ID.
     const setFilms = (filmToKeep, filmToKeepId) => {
+        // Changing left side film
         let leftIdx;
         if (filmToKeepId !== 'left' || filmToKeep.count > 1) {
             if (filmToKeepId !== '') setPrevLeftFilm({...leftFilm});
 
             leftIdx = Math.floor(Math.random() * movieData[0].data.length);
-            while (leftIdx in usedIdxTable) {
+            while (leftIdx in usedIdxTable) { // Choosing random index until it finds one that hasn't been used yet
                 leftIdx = Math.floor(Math.random() * movieData[0].data.length);
             }
 
@@ -52,11 +53,13 @@ function Game() {
                 "count": 1
             });
             
+            // Waiting for sliding animation to finish before setting prev film to null
             setTimeout(() => {
                 setPrevLeftFilm(null);
             }, 1000);
         }
         
+        // Changing right side film
         let rightIdx;
         if (filmToKeepId !== 'right' || filmToKeep.count > 1) {
             if (filmToKeepId !== '') setPrevRightFilm({...rightFilm});
@@ -80,7 +83,7 @@ function Game() {
             }, 1000);
         }
 
-        setUsedIdxTable({...usedIdxTable, [leftIdx]: true, [rightIdx]: true});
+        setUsedIdxTable((t) => ({...t, [leftIdx]: true, [rightIdx]: true}));
     }
 
     // Fetches data on mount
@@ -97,17 +100,18 @@ function Game() {
 
     const endGameNow = () => {
         if (score >= highScore) document.cookie = `highScore=${score}; max-age=1209600`; // Cookie expires in 2 weeks
-        if (score === 0) setScore(-1);
+        if (score === 0) setScore(-1); // Setting score to -1 so Home.jsx component renders the results screen
         setUsedIdxTable({});
-        setTimeout(() => {
+        setTimeout(() => { 
             setClicked(false);
             endGame();
-        }, 1750)
+        }, 1750); 
     }
     
     const handleClick = (film, otherFilm, id, otherId) => {
         setClicked(true);
 
+        // Renders rating to screen, starts from 0 and climbs to actual movie rating
         const ratingAnimation = () => {
             if (!leftFilm.isRevealed) {
                 let climbingRating = 0;
@@ -142,7 +146,7 @@ function Game() {
             }
         }
 
-        // How long to wait for animation to finish. Calculated by taking the largest unrevealed rating and multiplying by 100, then adding 500
+        // How long to wait for animation to finish. Calculated by taking the largest unrevealed rating and multiplying by 100, then adding 300
         const waitMs = (!leftFilm.isRevealed && !rightFilm.isRevealed 
                             ? Math.max(leftFilm.rating*100, rightFilm.rating*100) 
                             : (!leftFilm.isRevealed 
@@ -154,26 +158,26 @@ function Game() {
         // Wait for animation to finish before continuing function
         setTimeout(() => {
             // Revealing rating, increasing count
-            setLeftFilm((f) => ({...f, "count": leftFilm.count + 1}));
-            setRightFilm((f) => ({...f, "count": rightFilm.count + 1}));             
+            setLeftFilm((f) => ({...f, "count": f.count + 1}));
+            setRightFilm((f) => ({...f, "count": f.count + 1}));             
 
             // User answered correctly
             if (film.rating >= otherFilm.rating) {
-                setScore((s) => s + 1);
-                if (score + 1 === 468) { // Max score
-                    endGameNow();
-                } else {
-                    setTimeout(() => {
+                setTimeout(() => {
+                    setScore((s) => s + 1);
+                    if (score + 1 === 468) { // Max score
+                        endGameNow();
+                    } else {
                         // If correct film has been correct twice in a row, keep other film
                         if (film.count === 2) {
                             setFilms(otherFilm, otherId);
                         } else { // Otherwise keep correct film
                             setFilms(film, id);
                         }        
-                        setClicked(false);
-                    }, 1750)                    
-                }
-
+                        setClicked(false);                
+                    }                    
+                }, 1750);
+                
             // User answered incorrectly, game ends
             } else {
                 endGameNow();
@@ -191,7 +195,7 @@ function Game() {
                                  rating={`${leftFilm.rating}`} imgSrc={`${leftFilm.imgSrc}`} 
                                  isRevealed={leftFilm.isRevealed} id="film-slide-in"
                                  onClick={!clicked ? ((film, otherFilm, id, otherId) => handleClick(leftFilm, rightFilm, "left", "right")) : undefined}/>
-                           {prevLeftFilm &&
+                           {prevLeftFilm && // During film change, prevLeftFilm is created and slides down
                                 <Film title={`${prevLeftFilm.title} (${prevLeftFilm.year})`} 
                                       rating={`${prevLeftFilm.rating}`} imgSrc={`${prevLeftFilm.imgSrc}`} 
                                       isRevealed={prevLeftFilm.isRevealed} id="film-slide-out" />}                          
@@ -209,15 +213,13 @@ function Game() {
                         </div>}
                 </div>
 
-                <h3 className="score">Score: {score === -1 ? 0 : score}</h3>
+                <h3 className="score">Score: {score === -1 ? 0 : score}</h3> 
 
                 <div className="prompt">
                     <h3>What film has the higher Letterboxd rating?</h3>              
                 </div>
             </div>
-        :
-        // Blank page w/ background
-        <div style={{"transform": "translateY(-100%)"}}>e</div>
+        : <></>
     );
 }
 
