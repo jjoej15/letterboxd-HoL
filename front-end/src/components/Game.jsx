@@ -3,7 +3,8 @@ import { useState, useEffect, useContext } from "react";
 import { ScoreContext, ScoreSetContext, GameSetContext } from "../App";
 
 function Game() {
-    const highScore = decodeURIComponent(document.cookie) !== "" ? decodeURIComponent(document.cookie).split('=')[1] : ""; // Looking at cookies for high score
+    if (!window.localStorage.getItem('highScore')) window.localStorage.setItem('highScore', '0');
+    const highScore = window.localStorage.getItem('highScore'); // Looking at local storage for high score
     const [leftFilm, setLeftFilm] = useState(null);
     const [rightFilm, setRightFilm] = useState(null);
     const [prevLeftFilm, setPrevLeftFilm] = useState(null);
@@ -99,7 +100,7 @@ function Game() {
     }, [movieData]);
 
     const endGameNow = () => {
-        if (score >= highScore) document.cookie = `highScore=${score}; max-age=1209600`; // Cookie expires in 2 weeks
+        if (score > highScore) window.localStorage.setItem('highScore', score.toString());
         if (score === 0) setScore(-1); // Setting score to -1 so Home.jsx component renders the results screen
         setUsedIdxTable({});
         setTimeout(() => { 

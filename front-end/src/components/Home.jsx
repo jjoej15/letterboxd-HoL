@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import { useContext, useState } from "react";
 import { ScoreContext, ScoreSetContext } from "../App";
 
-function Home(props) {
-    // Checks cookies to look for user's stored high score 
-    const highScore = decodeURIComponent(document.cookie) !== "" ? decodeURIComponent(document.cookie).split("=")[1] : "";
+function Home(props) { 
+    if (!window.localStorage.getItem('highScore')) window.localStorage.setItem('highScore', '0');
+    const highScore = window.localStorage.getItem('highScore'); // Looking at local storage for high score
     const [clicked, setClicked] = useState(false); // Boolean representing whether a button has been clicked
 
     const score = useContext(ScoreContext);
