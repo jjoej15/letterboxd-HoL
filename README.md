@@ -22,6 +22,7 @@ Simple web application that allows users to compare Letterboxd movie ratings and
 - **React**
 - **Vite**
 - **CSS**
+- **Netlify/Render for hosting**
 
 ### Back End
 - **JavaScript**
